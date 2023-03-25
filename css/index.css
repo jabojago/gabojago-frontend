@@ -1,0 +1,91 @@
+body{
+  
+}
+
+section{
+  max-width: 1280px;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+/* header */
+#header{
+  background-color: bisque;
+}
+
+.title{
+  display: flex;
+  max-width: 1280px;
+  height: 80px;
+  margin: auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header .title ul{
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+}
+
+#header .title ul .link a:hover{
+  text-decoration: underline;
+}
+
+ /* gallery  */
+#gallery{
+  overflow-x: hidden;
+}
+#gallery .gallery-container ul{
+  display: flex;
+}
+
+#gallery .gallery-container ul .gallery-image{
+  position:relative;
+}
+
+#gallery .gallery-container ul .gallery-image .content{
+  position: absolute;
+  top: 70%;
+  left: 15%;
+  font-size: 25px;
+  font-weight: 900;
+  color:white;
+}
+
+#gallery .gallery-container ul .gallery-image .content div{
+  margin-bottom: 8px;
+}
+
+#gallery .gallery-container ul .gallery-image img{
+  width: 1280px;
+}
+
+/* intro */
+.icon-link-container ul{
+  display: flex;
+  max-width: 600px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.icon-link-container ul .icon-link{
+  text-align: center;
+}
+
+.icon-link-container ul .icon-link a{
+  display: block;
+  transition: 0.3s;
+}
+
+.icon-link-container ul .icon-link a:hover{
+  color:blueviolet;
+}
+.icon-link-container ul .icon-link i{
+  font-size: xx-large;
+  margin-bottom: 10px;
+}
+
+.icon-link-container ul .icon-link .introduce-desc{
+  font-weight: 600;
+}
