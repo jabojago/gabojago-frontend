@@ -1,0 +1,17 @@
+#post, #comment{
+  padding: 10px;
+}
+
+.container{
+  max-width: 1280px;
+  margin: auto;
+  line-height: 50px;
+}
+
+#post .post-container .title-box .post-title{
+  font-size: xx-large;
+}
+
+.box {
+  border-bottom: 1px solid black;
+}
