@@ -1,0 +1,87 @@
+/* .mytitle{
+    background-color: red;
+    width : 300px;
+    height : 200px;
+
+    color : white;
+
+    text-align: center;
+    padding-top : 40px;
+} */
+body{
+    margin:0;
+    height: 100%;
+    background: #f5f6f7;
+    font-family: Dotum, '돋움', Helvetica, sans-serif;
+}
+.wrap{
+    width : 400px;
+    margin: auto;
+}
+#login{
+    position: relative;
+    width: 100%;
+    padding: top 50px;
+    max-width: 320px;
+    margin: 60px auto;
+}
+.id, .pw{
+    width: 100%;
+    display: flex;
+    flex-flow : row wrap;
+    margin-bottom: 50px;
+}
+.id label, .id input, .pw label, .pw input{
+    width: 100%;
+    margin : 0 20px;
+}
+.id label, .pw label{
+    font-weight: 600;
+    font-family: 'S-CoreDream-4Regular';
+}
+.id input, .pw input{
+    font-family: 'S-CoreDream-3Light';
+    padding: 20px;
+    border:none;
+    border-radius: 0;
+    border-bottom: 1px solid;
+    outline: none;
+}
+.login_btm ul{
+    font-family: 'S-CoreDream-3Light';
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+    list-style-type: none;
+}
+.login_btm li:nth-child(1){
+    margin-left : 20px;
+}
+.login_btm li:nth-child(3){
+    margin-right : 20px;
+}
+.login_btm a{
+    text-decoration: none;
+    color : black;
+}
+.login_btm a:hover{
+    color: red;
+}
+.loginbtn input{
+    font-family: "S-CoreDream-3Light";
+    width:100%;
+    border:0;
+    border-radius: 50px;
+    padding : 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .5s;
+    color: white;
+    background-color: #f87a7a;    
+    text-align: center;
+}
+.loginbtn input:hover{
+    background-color: #FF4A4A;
+
+    box-shadow: 0 3px 6px rgb(255, 74, 74);
+}
