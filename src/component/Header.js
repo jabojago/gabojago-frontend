@@ -26,14 +26,14 @@ function Header(props) {
         props.login
           ?
           <div style={linkFieldStyle}>
-            <Link to={'/article'}>커뮤니티</Link>
+            <Link to={'/articles'}>커뮤니티</Link>
             <Link to={'/accompany'}>동행</Link>
             <Link to={'/qna'}>Q&A</Link>
             <Link to={'/mypage'}>마이페이지</Link>
           </div>
           :
           <div style={linkFieldStyle}>
-            <Link to={'/article'}>커뮤니티</Link>
+            <Link to={'/articles'}>커뮤니티</Link>
             <Link to={'/accompany'}>동행</Link>
             <Link to={'/qna'}>Q&A</Link>
             <Link to={'/login'}>로그인</Link>

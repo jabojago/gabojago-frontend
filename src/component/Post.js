@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Post(props) {
+  let content = props.content;
+  let id = props.id;
+
   return (
-    <div className="App">
-      Post
+    <div>
+      {id}
+      <Link to={`/${props.category}/${id}`}>{content.title}</Link>
+      {content.nickname}
+      {content.review}
     </div>
   );
 }
