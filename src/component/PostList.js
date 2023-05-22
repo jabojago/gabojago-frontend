@@ -1,31 +1,40 @@
 import { useState, useEffect } from 'react';
 import Post from './Post'
 
-function Qna(props) {
+function PostList(props) {
   const [page, setPage] = useState(0);
   const [contents, setContents] = useState([]);
   
   useEffect(() => {
     
-    fetch(`http://gabojago.shop/api/qna/posts?page=${page}&size=10`)
+    fetch(`http://gabojago.shop/api/${props.category}/posts?page=${page}&size=10`)
     .then(response => response.json())
     .then(response => {
       let contents = response.content;
       let array = [];
+      let id;
+
+      console.log(contents);
 
       contents.forEach(content => {
-        array.push(<Post 
-          key={content.articleId} 
-          id={content.articleId}
+        if(content.articleId){
+          id = content.articleId;
+        }
+        else{
+          id = content.id;
+        }
+        
+        array.push(<Post
+          key={id}
+          id={id} 
           content={content}
-          category='qna'>
-
+          category={props.category}>
           </Post>)
       });
 
       setContents(array);
     })
-  }, [page]);
+  }, [page, props.category]);
 
   return (
     <div>
@@ -34,4 +43,4 @@ function Qna(props) {
   );
 }
 
-export default Qna;
+export default PostList;

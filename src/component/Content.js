@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 
 function Content(props) {
   const [content, setContent] = useState(undefined);
-
+  const [postState, setPostSate] = useState('view');
+  
   useEffect(()=>{
     let path = window.location.pathname.split('/');
     let category = path[1];

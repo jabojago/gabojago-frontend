@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Post(props) {
   let content = props.content;
+  console.log(content)
   let id = props.id;
 
   return (
