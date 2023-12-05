@@ -5,29 +5,29 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {useUserDispatch} from "./UserContext";
 import useInput from "../hooks/useInput"
-const Signup=() =>{
+const Modify=() =>{
 
     const dispatch = useUserDispatch();
     const history=useNavigate();
 
     //초기값 세팅
     const [email, onChangeEmail, setEmail]=useInput("");
-    const[name, onChangename, setName]=useInput("");
-    const[nickname, onChangeNickname, setNickname]=useInput("");
-    const[password, onChangePassword, setPassword]=useInput("");
+    // const[name, onChangename, setName]=useInput("");
+    const[newNickname, onChangenewNickname, setnewNickname]=useInput("");
+    const[newPassword, onChangePassword, setPassword]=useInput("");
     const[passwordConfirm, onChangePasswordConfirm, setpasswordConfirm]=useInput("");
-    const[birth, onChangeBirth, setBirth]=useInput("");
-    const[phone, onChangePhone, setPhone]=useInput("");
+    // const[birth, onChangeBirth, setBirth]=useInput("");
+    const[newPhone, onChangenewPhone, setnewPhone]=useInput("");
     const [errorMessage, setErrorMessage] = useState({
         emailError: "",
-        nameError: "",
-        nicknameError:"",
+        // nameError: "",
+        newNicknameError:"",
         passwordError: "",
         passwordConfirmError: "",
-        birthError:"",
-        phoneError:"",
+        // birthError:"",
+        newPhoneError:"",
       });
-    const { emailError, passwordError, passwordConfirmError, nicknameError,nameError,birthError, phoneError} = errorMessage;
+    const {emailError, passwordError, passwordConfirmError, newNicknameError, newPhoneError} = errorMessage;
 
     const inputRegexs = {
         emailReg:  /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/,
@@ -45,18 +45,18 @@ const Signup=() =>{
           }
           return isValemailate;
         },
-        [password, email]
+        [newPassword, email]
       );
 
     const onReset = useCallback(() => {
         setEmail("");
         setPassword("");
         setpasswordConfirm("");
-        setName("");
-        setNickname("");
-        setBirth("");
-        setPhone("");
-      }, [setEmail, setPassword, setpasswordConfirm,setBirth,setName,setNickname,setPhone]);
+        //setName("");
+        setnewNickname("");
+        //setBirth("");
+        setnewPhone("");
+      }, [setEmail, setPassword, setpasswordConfirm,setnewNickname,setnewPhone]);
       
       /* 아이디 체크 */
       useEffect(() => {
@@ -75,7 +75,7 @@ const Signup=() =>{
     
       /* 비밀번호 체크 */
       useEffect(() => {
-        if (valemailationCheck(password, inputRegexs.passwordReg) || password === "") {
+        if (valemailationCheck(newPassword, inputRegexs.passwordReg) || newPassword === "") {
           setErrorMessage({
             ...errorMessage,
             passwordError: "",
@@ -87,11 +87,11 @@ const Signup=() =>{
               "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!",
           });
         }
-      }, [password]);
+      }, [newPassword]);
       
       /* 비밀번호 확인 체크 */
       useEffect(() => {
-        if (password === passwordConfirm || passwordConfirm === "") {
+        if (newPassword === passwordConfirm || passwordConfirm === "") {
           setErrorMessage({
             ...errorMessage,
             passwordConfirmError: "",
@@ -104,54 +104,45 @@ const Signup=() =>{
         }
       }, [passwordConfirm]);
     
-      const onSignUp = () => {
-        if (!email || !password || !passwordConfirm) {
-          alert("모든 값을 정확하게 입력해주세요");
-          return;
-        }
-
-        if (emailError) {
-          alert("이메일이 형식에 맞지 않습니다");
-          return;
-        } 
-        else if (passwordError) {
-          alert("비밀번호가 형식에 맞지 않습니다");
-          return;
-        } else if (passwordConfirmError) {
-          alert("비밀번호 확인이 일치하지 않습니다.");
-          return;
-        }
-        //e.preventDefault();
-        fetch('http://gabojago.shop/auth/signup',{
+      const onModifyPassword=()=>{
+        fetch('http://gabojago.shop/api/members/password',{
             method:'POST',
             headers:{ 'Content-Type': 'application/json; charset=utf-8' },
             body:JSON.stringify({
-                email:email,
-                password:password,
-                //passwordConfirm:passwordConfirm,
-                name: name,
-                nickname:nickname,
-                birth:birth,
-                phone:phone
-            }),
+                newPassword:newPassword,
+            })
         })
         .then(res=>res.json())
-        .then(data=>{console.log(data);
-            dispatch({
-                type:"CREATE_USER",
-                user:{
-                    email,
-                    password,
-                },
-            });
-            alert("회원 가입 완료");
-            history('/login');
-            //history("/");
-            onReset();
-        });
-
-        
-      };
+        .then(data=>{console.log(data);})
+        alert("비밀번호 변경 완료");
+        history('/');
+    };
+    const onModifynewNickname=()=>{
+        fetch('http://gabojago.shop/api/members/nickname',{
+            method:'POST',
+            headers:{ 'Content-Type': 'application/json; charset=utf-8' },
+            body:JSON.stringify({
+                newnewNickname:newNickname,
+            })
+        })
+        .then(res=>res.json())
+        .then(data=>{console.log(data);})
+        alert("닉네임 변경 완료");
+        history('/');
+    };
+    const onModifynewPhone=()=>{
+        fetch('http://gabojago.shop/api/members/phone',{
+            method:'POST',
+            headers:{ 'Content-Type': 'application/json; charset=utf-8' },
+            body:JSON.stringify({
+                newnewPhone:newPhone,
+            })
+        })
+        .then(res=>res.json())
+        .then(data=>{console.log(data);})
+        alert("전화번호 변경 완료");
+        history('/');
+    };
     // const onChangeEmail=(e)=>{
     //     const currentEmail=e.target.value;
     //     setEmail(currentEmail);
@@ -179,16 +170,16 @@ const Signup=() =>{
     //     }
     //   };
 
-    // const onChangeNickname = (e) => {
-    // const currentNickname = e.target.value;
-    // setNickname(currentNickname);
+    // const onChangenewNickname = (e) => {
+    // const currentnewNickname = e.target.value;
+    // setnewNickname(currentnewNickname);
     
-    // if (currentNickname.length < 2 || currentNickname.length > 10) {
-    //     setNicknameMessage("닉네임은 2글자 이상 10글자 이하로 입력해주세요!");
-    //     setIsNickname(false);
+    // if (currentnewNickname.length < 2 || currentnewNickname.length > 10) {
+    //     setnewNicknameMessage("닉네임은 2글자 이상 10글자 이하로 입력해주세요!");
+    //     setIsnewNickname(false);
     // } else {
-    //     setNicknameMessage("사용가능한 닉네임 입니다.");
-    //     setIsNickname(true);
+    //     setnewNicknameMessage("사용가능한 닉네임 입니다.");
+    //     setIsnewNickname(true);
     // }
     // };
 
@@ -225,28 +216,28 @@ const Signup=() =>{
     // setBirth(currentBirth);
     // };
 
-    // const onChangePhone = (getNumber) => {
-    // const currentPhone = getNumber;
-    // setPhone(currentPhone);
-    // const phoneRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    // const onChangenewPhone = (getNumber) => {
+    // const currentnewPhone = getNumber;
+    // setnewPhone(currentnewPhone);
+    // const newPhoneRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
     
-    // if (!phoneRegExp.test(currentPhone)) {
-    //     setPhoneMessage("올바른 형식이 아닙니다!");
-    //     setIsPhone(false);
+    // if (!newPhoneRegExp.test(currentnewPhone)) {
+    //     setnewPhoneMessage("올바른 형식이 아닙니다!");
+    //     setIsnewPhone(false);
     // } else {
-    //     setPhoneMessage("사용 가능한 번호입니다:-)");
-    //     setIsPhone(true);
+    //     setnewPhoneMessage("사용 가능한 번호입니다:-)");
+    //     setIsnewPhone(true);
     // }
     // };
 
     // const addHyphen = (e) => {
     // const currentNumber = e.target.value;
-    // setPhone(currentNumber);
+    // setnewPhone(currentNumber);
     // if (currentNumber.length == 3 || currentNumber.length == 8) {
-    //     setPhone(currentNumber + "-");
-    //     onChangePhone(currentNumber + "-");
+    //     setnewPhone(currentNumber + "-");
+    //     onChangenewPhone(currentNumber + "-");
     // } else {
-    //     onChangePhone(currentNumber);
+    //     onChangenewPhone(currentNumber);
     // }
     // };
 
@@ -254,42 +245,22 @@ const Signup=() =>{
 
     return (
     <>
-        <h3>Sign Up</h3>
+        <h3>modify</h3>
         <div className="form">
         <div className="form-el">
-            <label htmlFor="email">Email</label> <br />
-            <input
-            email="email"
-            name="name"
-            value={email}
-            onChange={onChangeEmail}
-            />
-            {/* <p className="message">{emailMessage}</p> */}
-            {emailError? <p>{emailError}</p>:""}
-        </div>
-    
-        <div className="form-el">
-            <label htmlFor="name">Name</label> <br />
-            <input email="name" name="name" value={name} onChange={onChangename} />
-            {/* <p className="message">{nameMessage}</p> */}
-            {nameError? <p>{nameError}</p>:""}
-
-        </div>
-
-        <div className="form-el">
-            <label htmlFor="nickname">Nick Name</label> <br />
-            <input email="nickname" name="nickname" value={nickname} onChange={onChangeNickname} />
-            {/* <p className="message">{nicknameMessage}</p> */}
-            {nicknameError? <p>{nicknameError}</p>:""}
+            <label htmlFor="newNickname">Nick Name</label> <br />
+            <input email="newNickname" name="newNickname" value={newNickname} onChange={onChangenewNickname} />
+            {/* <p className="message">{newNicknameMessage}</p> */}
+            {newNicknameError? <p>{newNicknameError}</p>:""}
 
         </div>
 
         <div className="form-el">
             <label htmlFor="password">Password</label> <br />
             <input
-            email="password"
-            name="password"
-            value={password}
+            email="newPassword"
+            name="newPassword"
+            value={newPassword}
             onChange={onChangePassword}
             />
             {/* <p className="message">{passwordMessage}</p> */}
@@ -309,33 +280,21 @@ const Signup=() =>{
 
         </div>
 
-        <div className="form-el">
-            <label htmlFor="birth">Birth</label> <br />
-            <input
-            email="birth"
-            name="birth"
-            value={birth}
-            onChange={onChangeBirth}
-            />
-            {/* <p className="message">{birthMessage}</p> */}
-            {birthError? <p>{birthError}</p>:""}
-
-        </div>
 
         <div className="form-el">
-            <label htmlFor="phone">Phone</label> <br />
-            <input email="phone" name="phone" value={phone} onChange={onChangePhone} />
-            {/* <p className="message">{phoneMessage}</p> */}
-            {phoneError? <p>{phoneError}</p>:""}
+            <label htmlFor="newPhone">newPhone</label> <br />
+            <input email="newPhone" name="newPhone" value={newPhone} onChange={onModifynewPhone} />
+            {/* <p className="message">{newPhoneMessage}</p> */}
+            {newPhoneError? <p>{newPhoneError}</p>:""}
 
         </div>
  
         <br />
         <br />
-        <button type="submit" onClick={onSignUp}>Submit</button>
+        {/* <button type="submit" onClick={onSignUp}>Submit</button> */}
         </div>
     </>
     );
 };
 
-export default Signup;
+export default Modify;
